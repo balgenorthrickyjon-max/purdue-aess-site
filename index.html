@@ -151,30 +151,6 @@
       text-overflow:ellipsis;
     }
 
-    .hero{
-      padding:72px 0 48px;
-      position:relative;
-      overflow:hidden;
-    }
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.1fr .9fr;
-      gap:34px;
-      align-items:end;
-    }
-    .hero-copy{
-      padding-top:34px;
-    }
-    .hero-copy p{
-      margin-top:18px;
-    }
-    .hero-stats{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0,1fr));
-      gap:14px;
-      margin-top:30px;
-      max-width:760px;
-    }
     .stat{
       border:1px solid rgba(255,255,255,.09);
       background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
@@ -759,6 +735,7 @@
 
   <main id="top">
 
+
 <section class="hero">
   <div class="hero-bg"></div>
 
@@ -817,7 +794,6 @@
   padding:56px 0 48px;
 }
 
-/* BACKGROUND RENDER */
 .hero-bg{
   position:absolute;
   inset:0;
@@ -825,13 +801,10 @@
     radial-gradient(circle at center, rgba(0,0,0,0) 50%, rgba(0,0,0,.35) 100%),
     linear-gradient(180deg, rgba(5,5,5,.45), rgba(5,5,5,.75)),
     url("assets/MainRender.jpg") center/cover no-repeat;
-  opacity:0.8;
+  opacity:0.85;
   z-index:0;
-  filter: blur(0px);   /* reduced from 4px */
-  transform: scale(1.02);
 }
 
-/* CONTENT ABOVE BACKGROUND */
 .hero-grid{
   position:relative;
   z-index:2;
@@ -841,19 +814,19 @@
   align-items:start;
 }
 
-/* TEXT */
+.hero-copy{
+  padding-top:20px;
+}
+
 .hero-copy h1{
   font-size:clamp(2.7rem, 6vw, 4.8rem);
   line-height:.95;
-  letter-spacing:-.05em;
 }
 
 .hero-copy .lead{
   margin-top:16px;
-  max-width:540px;
 }
 
-/* RIGHT SIDE */
 .hero-right{
   display:flex;
   flex-direction:column;
@@ -861,7 +834,6 @@
   gap:14px;
 }
 
-/* VIDEO */
 .hero-video-wrap{
   position:relative;
   width:100%;
@@ -870,27 +842,31 @@
 }
 
 .hero-video{
-  display:block;
   width:100%;
-  height:auto;
+  border-radius:16px;
 }
 
-/* SOUND BUTTON */
+/* YOUR ORIGINAL BUTTON (FIXED) */
 .sound-toggle{
   position:absolute;
-  top:12px;
-  right:12px;
-  z-index:2;
+  top:14px;
+  right:14px;
+  z-index:3;
+
   border:1px solid rgba(255,255,255,.18);
-  background:rgba(0,0,0,.5);
+  background:rgba(0,0,0,.55);
   color:#fff;
+
   border-radius:999px;
-  padding:7px 13px;
+  padding:8px 14px;
+
   font-size:.82rem;
+  font-weight:600;
+
   cursor:pointer;
+  backdrop-filter:blur(6px);
 }
 
-/* STATS */
 .hero-stats{
   width:100%;
   max-width:520px;
@@ -899,64 +875,58 @@
   gap:12px;
 }
 
-.stat{
-  padding:14px 12px;
-  border:1px solid rgba(255,255,255,.08);
-  border-radius:10px;
-  background:rgba(0,0,0,.45); /* darker for readability over image */
-  text-align:center;
-  backdrop-filter: blur(6px);
-}
+/* MOBILE */
+@media (max-width:900px){
 
-.stat strong{
-  display:block;
-  font-size:1.25rem;
-  letter-spacing:-.03em;
-  margin-bottom:4px;
-}
+  .hero{
+    padding:36px 0 28px;
+  }
 
-.stat span{
-  font-size:.78rem;
-  color:#cfcfcf;
-}
+  .hero-bg{
+    height:420px;
+    inset:0 0 auto 0;
+    background:
+      linear-gradient(180deg, rgba(5,5,5,.25), rgba(5,5,5,.85)),
+      url("assets/MainRender.jpg") center top/cover no-repeat;
+  }
 
-/* TABLET */
-@media (max-width:1100px){
   .hero-grid{
     grid-template-columns:1fr;
-    gap:28px;
+    gap:18px;
   }
 
   .hero-right{
-    align-items:flex-start;
-  }
-
-  .hero-video-wrap,
-  .hero-stats{
-    max-width:100%;
+    margin-top:180px;
+    align-items:stretch;
   }
 
   .hero-video-wrap{
-    margin-top:10px;
+    margin-top:0;
+    max-width:100%;
   }
+
+.hero-stats{
+  width:100%;
+  max-width:520px;
+  margin:0 auto;                 /* centers the whole block */
+  display:grid;
+  grid-template-columns:1fr;
+  gap:14px;
 }
 
-/* MOBILE */
-@media (max-width:720px){
-  .hero{
-    padding:40px 0 32px;
-  }
+.stat{
+  text-align:center;             /* centers text inside each box */
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+}
 
-  .hero-copy h1{
-    font-size:clamp(2.3rem, 10vw, 3.5rem);
-  }
-
-  .hero-stats{
-    grid-template-columns:1fr;
-  }
-
-  .stat{
-    text-align:left;
+  .sound-toggle{
+    top:10px;
+    right:10px;
+    padding:7px 12px;
+    font-size:.78rem;
   }
 }
 </style>
