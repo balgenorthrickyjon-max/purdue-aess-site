@@ -278,6 +278,12 @@
       height:100%;
       object-fit:cover;
     }
+
+.media-main img{
+  object-fit:contain;
+  background:#060606;
+}
+
     .media-caption{
       position:absolute;
       left:22px;
@@ -977,9 +983,9 @@ soundToggle.addEventListener('click', async () => {
 
         <div class="panel card reveal">
           
-<div class="panel reveal" style="padding:0;overflow:hidden;">
+<div class="panel reveal" style="padding:0;overflow:hidden;display:flex;align-items:center;justify-content:center;background:#060606;">
   <img src="assets/Team.JPG" alt="AESS Team Photo"
-       style="width:100%;height:420px;object-fit:cover;display:block;">
+       style="max-width:100%;height:auto;object-fit:contain;">
 </div>
 
 </div>
@@ -1110,7 +1116,7 @@ soundToggle.addEventListener('click', async () => {
 }
 </style>
 
-    
+
 <section id="development" class="section">
   <div class="wrap">
 
@@ -1132,13 +1138,13 @@ soundToggle.addEventListener('click', async () => {
         </p>
 
         <div style="display:grid;grid-template-columns:1fr;gap:12px;margin-top:18px;">
-          <div style="overflow:hidden;border-radius:14px;">
+          <div style="overflow:hidden;border-radius:14px;background:#060606;display:flex;align-items:center;justify-content:center;">
             <img src="assets/Wind1.jpg" alt="Wind Tunnel Test 1"
-                 style="width:100%;height:240px;object-fit:cover;display:block;">
+                 style="width:100%;height:auto;object-fit:contain;display:block;">
           </div>
-          <div style="overflow:hidden;border-radius:14px;">
+          <div style="overflow:hidden;border-radius:14px;background:#060606;display:flex;align-items:center;justify-content:center;">
             <img src="assets/Wind2.jpg" alt="Wind Tunnel Test 2"
-                 style="width:100%;height:240px;object-fit:cover;display:block;">
+                 style="width:100%;height:auto;object-fit:contain;display:block;">
           </div>
         </div>
       </div>
@@ -1151,13 +1157,13 @@ soundToggle.addEventListener('click', async () => {
         </p>
 
         <div style="display:grid;grid-template-columns:1fr;gap:12px;margin-top:18px;">
-          <div style="overflow:hidden;border-radius:14px;">
+          <div style="overflow:hidden;border-radius:14px;background:#060606;display:flex;align-items:center;justify-content:center;">
             <img src="assets/Str1.jpg" alt="Composite fabrication process"
-                 style="width:100%;height:240px;object-fit:cover;display:block;">
+                 style="width:100%;height:auto;object-fit:contain;display:block;">
           </div>
-          <div style="overflow:hidden;border-radius:14px;">
+          <div style="overflow:hidden;border-radius:14px;background:#060606;display:flex;align-items:center;justify-content:center;">
             <img src="assets/Str2.jpg" alt="Structural development and layup"
-                 style="width:100%;height:240px;object-fit:cover;display:block;">
+                 style="width:100%;height:auto;object-fit:contain;display:block;">
           </div>
         </div>
       </div>
@@ -1166,6 +1172,8 @@ soundToggle.addEventListener('click', async () => {
 
   </div>
 </section>
+
+
 
 
 <section id="gallery" class="section">
@@ -1589,7 +1597,7 @@ soundToggle.addEventListener('click', async () => {
 }
 
 .sponsor-logos .aess-box img{
-  height:62px;
+  height:65px;
 }
 
 @media (max-width:900px){
@@ -1609,7 +1617,7 @@ soundToggle.addEventListener('click', async () => {
   }
 
   .sponsor-logos .aess-box img{
-    height:70px;
+    height:55px;
   }
 }
 
