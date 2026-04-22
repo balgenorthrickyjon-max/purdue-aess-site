@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Purdue AESS | Supersonic UAV Program</title>
+  <meta name="description" content="Purdue AESS Chapter building the world’s first sub-25 kg supersonic drone through integrated student-led design, propulsion, structures, systems, and testing." />
+  <style>
+    :root{
+      --bg:#050505;
+      --panel:#0c0c0c;
+      --soft:#121212;
+      --line:#222;
+      --line2:#3a3a3a;
+      --text:#f2f2f2;
+      --muted:#b7b7b7;
+      --muted2:#8a8a8a;
+      --white:#ffffff;
+      --max:1240px;
+      --radius:22px;
+      --shadow:0 20px 80px rgba(0,0,0,.45);
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:Inter,Segoe UI,Arial,sans-serif;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(255,255,255,.08), transparent 30%),
+        radial-gradient(circle at 100% 0%, rgba(255,255,255,.05), transparent 30%),
+        linear-gradient(180deg, #090909 0%, #040404 100%);
+      color:var(--text);
+      line-height:1.55;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(255,255,255,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.035) 1px, transparent 1px);
+      background-size:48px 48px;
+      mask-image:linear-gradient(180deg, rgba(0,0,0,.5), rgba(0,0,0,.1));
+      opacity:.18;
+    }
+
+    a{color:var(--text);text-decoration:none}
+    img{max-width:100%;display:block}
+
+    .wrap{width:min(calc(100% - 40px), var(--max));margin:0 auto}
+    .section{padding:88px 0}
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      color:var(--muted);
+      text-transform:uppercase;
+      letter-spacing:.2em;
+      font-size:.78rem;
+      margin-bottom:16px;
+    }
+    .eyebrow::before{
+      content:"";
+      width:34px;
+      height:1px;
+      background:linear-gradient(90deg, var(--white), transparent);
+    }
+
+    h1,h2,h3,h4,p{margin:0}
+    h1{
+      font-size:clamp(2.8rem, 8vw, 6rem);
+      line-height:.94;
+      letter-spacing:-.05em;
+      font-weight:800;
+    }
+    h2{
+      font-size:clamp(2rem, 4vw, 3.2rem);
+      line-height:1;
+      letter-spacing:-.04em;
+      margin-bottom:16px;
+    }
+    h3{
+      font-size:1.2rem;
+      letter-spacing:-.02em;
+    }
+    p.lead{
+      font-size:1.1rem;
+      color:var(--muted);
+      max-width:720px;
+    }
+
+    .btns{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 20px;
+      border-radius:999px;
+      border:1px solid var(--line2);
+      background:rgba(255,255,255,.03);
+      color:var(--text);
+      font-weight:600;
+      transition:.25s ease;
+      cursor:pointer;
+    }
+    .btn:hover{transform:translateY(-1px);background:rgba(255,255,255,.08)}
+    .btn.primary{
+      background:var(--white);
+      color:#050505;
+      border-color:var(--white);
+    }
+
+    .site-header{
+      position:sticky;
+      top:0;
+      z-index:50;
+      backdrop-filter:blur(18px);
+      background:rgba(5,5,5,.72);
+      border-bottom:1px solid rgba(255,255,255,.07);
+    }
+
+    .nav{
+      min-height:78px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:16px;
+      min-width:0;
+    }
+    .brand img{
+      width:94px;
+      height:auto;
+      object-fit:contain;
+      filter:drop-shadow(0 0 12px rgba(255,255,255,.08));
+    }
+    .brand-text{min-width:0}
+    .brand-text strong{
+      display:block;
+      font-size:.96rem;
+      letter-spacing:.08em;
+      text-transform:uppercase;
+    }
+    .brand-text span{
+      display:block;
+      color:var(--muted2);
+      font-size:.82rem;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .nav-links{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  flex-wrap:nowrap;
+  justify-content:flex-end;
+}
+.nav-links a{
+  color:var(--muted);
+  font-size:.92rem;
+  white-space:nowrap;
+}
+.nav-links a:hover{color:var(--text)}
+
+    .hero{
+      padding:72px 0 48px;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr .9fr;
+      gap:34px;
+      align-items:end;
+    }
+    .hero-copy{
+      padding-top:34px;
+    }
+    .hero-copy p{
+      margin-top:18px;
+    }
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:14px;
+      margin-top:30px;
+      max-width:760px;
+    }
+    .stat{
+      border:1px solid rgba(255,255,255,.09);
+      background:linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02));
+      border-radius:18px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .stat strong{
+      font-size:1.6rem;
+      display:block;
+      letter-spacing:-.04em;
+    }
+    .stat span{
+      color:var(--muted);
+      font-size:.92rem;
+    }
+
+    .hero-visual{
+      position:relative;
+      min-height:540px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:32px;
+      overflow:hidden;
+      background:#060606;
+      box-shadow:var(--shadow);
+    }
+    .hero-visual img,
+    .hero-visual video{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .hero-visual::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.05), rgba(0,0,0,.42)),
+        radial-gradient(circle at 50% 50%, transparent 45%, rgba(0,0,0,.35));
+    }
+    .hero-overlay{
+      position:absolute;
+      left:24px;
+      right:24px;
+      bottom:24px;
+      z-index:2;
+      display:flex;
+      justify-content:space-between;
+      gap:16px;
+      align-items:end;
+      flex-wrap:wrap;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(0,0,0,.45);
+      border-radius:999px;
+      padding:10px 14px;
+      color:#fff;
+      font-size:.88rem;
+    }
+
+    .panel{
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:var(--radius);
+      background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
+      box-shadow:var(--shadow);
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+      align-items:stretch;
+    }
+
+    .card{
+      padding:28px;
+    }
+    .card p{
+      color:var(--muted);
+      margin-top:12px;
+    }
+
+    .project-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+      margin-top:28px;
+    }
+
+    .features{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:16px;
+      margin-top:22px;
+    }
+    .feature{
+      padding:18px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      background:rgba(255,255,255,.025);
+    }
+    .feature p{margin-top:8px;color:var(--muted)}
+
+    .media-grid{
+      display:grid;
+      grid-template-columns:1.25fr .75fr;
+      gap:24px;
+      margin-top:28px;
+    }
+
+    .media-main{
+      overflow:hidden;
+      min-height:500px;
+      position:relative;
+    }
+    .media-main video,
+    .media-main img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .media-caption{
+      position:absolute;
+      left:22px;
+      right:22px;
+      bottom:22px;
+      z-index:2;
+      padding:16px 18px;
+      border-radius:18px;
+      background:rgba(0,0,0,.5);
+      border:1px solid rgba(255,255,255,.1);
+    }
+    .media-main::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(0,0,0,.08), rgba(0,0,0,.48));
+      pointer-events:none;
+    }
+
+    .media-side{
+      display:grid;
+      gap:24px;
+    }
+
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(2, minmax(0,1fr));
+      gap:18px;
+    }
+    .gallery-item{
+      position:relative;
+      overflow:hidden;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.08);
+      min-height:220px;
+      background:#090909;
+      cursor:pointer;
+    }
+    .gallery-item img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      transition:transform .45s ease;
+    }
+    .gallery-item:hover img{transform:scale(1.04)}
+    .gallery-item span{
+      position:absolute;
+      left:14px;
+      bottom:14px;
+      z-index:2;
+      font-size:.86rem;
+      padding:8px 10px;
+      border-radius:999px;
+      background:rgba(0,0,0,.52);
+      border:1px solid rgba(255,255,255,.12);
+    }
+
+    .leadership-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:24px;
+      margin-top:28px;
+    }
+
+    .person{
+      overflow:hidden;
+      position:relative;
+    }
+    .person-photo{
+      aspect-ratio:4/4.4;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(255,255,255,.08), transparent 45%),
+        linear-gradient(180deg, #171717, #090909);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color:#777;
+      font-size:.95rem;
+      border-bottom:1px solid rgba(255,255,255,.08);
+    }
+    .person-photo img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+    .person-body{
+      padding:22px;
+    }
+    .role{
+      color:var(--muted2);
+      font-size:.92rem;
+      margin-top:4px;
+    }
+    .person-body p{
+      color:var(--muted);
+      margin-top:12px;
+    }
+
+    .sponsor-grid{
+      display:grid;
+      grid-template-columns:1.15fr .85fr;
+      gap:24px;
+      margin-top:28px;
+      align-items:start;
+    }
+
+    .logo-strip{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0,1fr));
+      gap:20px;
+      margin-top:24px;
+    }
+    .logo-box{
+      min-height:148px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      border-radius:22px;
+      border:1px solid rgba(255,255,255,.08);
+      background:#080808;
+    }
+    .logo-box img{
+      max-height:74px;
+      width:auto;
+      object-fit:contain;
+      opacity:.95;
+      filter:grayscale(1) brightness(1.1);
+    }
+    .logo-box.tall img{max-height:104px}
+
+    .sponsor-list{
+      display:grid;
+      gap:14px;
+      margin-top:20px;
+    }
+    .sponsor-list .item{
+      padding:16px 18px;
+      border-radius:18px;
+      border:1px solid rgba(255,255,255,.08);
+      color:var(--muted);
+      background:rgba(255,255,255,.025);
+    }
+
+    .contact-grid{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:24px;
+      margin-top:28px;
+    }
+    .contact-list{
+      display:grid;
+      gap:14px;
+      margin-top:22px;
+    }
+    .contact-item{
+      padding:16px 18px;
+      border:1px solid rgba(255,255,255,.08);
+      border-radius:18px;
+      color:var(--muted);
+      background:rgba(255,255,255,.02);
+    }
+    .contact-item strong{
+      display:block;
+      color:var(--text);
+      margin-bottom:6px;
+    }
+
+    .contact-form{
+      display:grid;
+      gap:14px;
+      margin-top:22px;
+    }
+    .contact-form input,
+    .contact-form textarea{
+      width:100%;
+      border-radius:16px;
+      border:1px solid rgba(255,255,255,.12);
+      background:#0a0a0a;
+      color:var(--text);
+      padding:15px 16px;
+      font:inherit;
+      resize:vertical;
+      min-height:54px;
+    }
+    .contact-form textarea{min-height:150px}
+
+    .footer{
+      padding:34px 0 46px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:var(--muted2);
+      font-size:.92rem;
+    }
+    .footer-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      flex-wrap:wrap;
+    }
+
+    .note{
+      margin-top:16px;
+      color:var(--muted2);
+      font-size:.88rem;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(18px);
+      transition:opacity .6s ease, transform .6s ease;
+    }
+    .reveal.show{
+      opacity:1;
+      transform:none;
+    }
+
+    .lightbox{
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.86);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding:26px;
+      z-index:100;
+    }
+    .lightbox.open{display:flex}
+    .lightbox img{
+      max-width:min(1200px, 96vw);
+      max-height:88vh;
+      border-radius:20px;
+      border:1px solid rgba(255,255,255,.1);
+      box-shadow:var(--shadow);
+    }
+    .lightbox button{
+      position:absolute;
+      top:18px;
+      right:18px;
+      width:48px;
+      height:48px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.15);
+      background:rgba(255,255,255,.06);
+      color:#fff;
+      font-size:1.2rem;
+      cursor:pointer;
+    }
+
+    @media (max-width: 1080px){
+  .hero-grid,
+  .split,
+  .project-grid,
+  .media-grid,
+  .sponsor-grid,
+  .contact-grid{
+    grid-template-columns:1fr;
+  }
+
+  .leadership-grid{
+    grid-template-columns:repeat(2, minmax(0,1fr));
+  }
+
+  .hero-visual{
+    min-height:420px;
+  }
+
+  .nav{
+    min-height:auto;
+    padding:12px 0;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-start;
+    gap:12px;
+  }
+
+  .brand{
+    width:100%;
+  }
+
+  .nav-links{
+    display:grid;
+    grid-template-columns:repeat(4, minmax(0,1fr));
+    gap:8px;
+    width:100%;
+    justify-content:stretch;
+  }
+
+  .nav-links a{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    padding:8px 6px;
+    font-size:.8rem;
+    line-height:1.1;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:999px;
+    background:rgba(255,255,255,.03);
+  }
+}
+
+    @media (max-width: 720px){
+      .wrap{width:min(calc(100% - 24px), var(--max))}
+      .nav{padding:14px 0}
+      .nav-links{
+  display:grid;
+  grid-template-columns:repeat(2, minmax(0,1fr));
+  gap:8px;
+  width:100%;
+}
+      .hero{padding-top:36px}
+      .hero-stats,
+      .features,
+      .gallery,
+      .logo-strip,
+      .leadership-grid{
+        grid-template-columns:1fr;
+      }
+      .section{padding:72px 0}
+      .hero-visual{min-height:340px}
+      .brand img{width:76px}
+    }
+
+
+    
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="wrap nav">
+      <a class="brand" href="#top">
+        <img src="assets/AESS_LOGO.png" alt="AESS Purdue logo" />
+        <div class="brand-text">
+          <strong>Purdue AESS</strong>
+          <span>Aerospace & Electronic Systems Society</span>
+        </div>
+      </a>
+      <nav class="nav-links">
+        <a href="#about">About</a>
+        <a href="#project">Project</a>
+        <a href="#development">Development</a>
+        <a href="#subteams">Subteams</a>
+        <a href="#leadership">Leadership</a>
+        <a href="#advisors">Advisors</a>
+        <a href="#sponsors">Sponsors</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+
+<section class="hero">
+  <div class="hero-bg"></div>
+
+  <div class="wrap hero-grid">
+
+    <!-- LEFT -->
+    <div class="hero-copy reveal">
+      <div class="eyebrow">Purdue Chapter</div>
+      <h1>Building the first<br>sub-25 kg supersonic drone.</h1>
+
+      <p class="lead">
+        Purdue AESS is a student engineering organization focused on advanced flight systems, integrated design, and high-speed vehicle development.
+      </p>
+
+      <div class="btns">
+        <a class="btn primary" href="#contact">Sponsor the Team</a>
+        <a class="btn" href="#project">Explore the Design</a>
+      </div>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="hero-right reveal">
+
+      <div class="hero-video-wrap">
+        <video id="heroVid" class="hero-video" autoplay muted loop playsinline>
+          <source src="assets/AESS_Promotional_Video.mp4">
+        </video>
+
+        <button class="sound-toggle" id="soundToggle">Unmute</button>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <strong>&lt; 25 kg</strong>
+          <span>Target vehicle class</span>
+        </div>
+        <div class="stat">
+          <strong>Mach 1+</strong>
+          <span>Supersonic objective</span>
+        </div>
+        <div class="stat">
+          <strong>50+</strong>
+          <span>Team members</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+.hero{
+  position:relative;
+  overflow:hidden;
+  padding:56px 0 48px;
+}
+
+/* BACKGROUND RENDER */
+.hero-bg{
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at center, rgba(0,0,0,0) 50%, rgba(0,0,0,.35) 100%),
+    linear-gradient(180deg, rgba(5,5,5,.45), rgba(5,5,5,.75)),
+    url("assets/MainRender.jpg") center/cover no-repeat;
+  opacity:0.8;
+  z-index:0;
+  filter: blur(0px);   /* reduced from 4px */
+  transform: scale(1.02);
+}
+
+/* CONTENT ABOVE BACKGROUND */
+.hero-grid{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1.08fr .92fr;
+  gap:44px;
+  align-items:start;
+}
+
+/* TEXT */
+.hero-copy h1{
+  font-size:clamp(2.7rem, 6vw, 4.8rem);
+  line-height:.95;
+  letter-spacing:-.05em;
+}
+
+.hero-copy .lead{
+  margin-top:16px;
+  max-width:540px;
+}
+
+/* RIGHT SIDE */
+.hero-right{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:14px;
+}
+
+/* VIDEO */
+.hero-video-wrap{
+  position:relative;
+  width:100%;
+  max-width:520px;
+  margin-top:80px;
+}
+
+.hero-video{
+  display:block;
+  width:100%;
+  height:auto;
+}
+
+/* SOUND BUTTON */
+.sound-toggle{
+  position:absolute;
+  top:12px;
+  right:12px;
+  z-index:2;
+  border:1px solid rgba(255,255,255,.18);
+  background:rgba(0,0,0,.5);
+  color:#fff;
+  border-radius:999px;
+  padding:7px 13px;
+  font-size:.82rem;
+  cursor:pointer;
+}
+
+/* STATS */
+.hero-stats{
+  width:100%;
+  max-width:520px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+
+.stat{
+  padding:14px 12px;
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:10px;
+  background:rgba(0,0,0,.45); /* darker for readability over image */
+  text-align:center;
+  backdrop-filter: blur(6px);
+}
+
+.stat strong{
+  display:block;
+  font-size:1.25rem;
+  letter-spacing:-.03em;
+  margin-bottom:4px;
+}
+
+.stat span{
+  font-size:.78rem;
+  color:#cfcfcf;
+}
+
+/* TABLET */
+@media (max-width:1100px){
+  .hero-grid{
+    grid-template-columns:1fr;
+    gap:28px;
+  }
+
+  .hero-right{
+    align-items:flex-start;
+  }
+
+  .hero-video-wrap,
+  .hero-stats{
+    max-width:100%;
+  }
+
+  .hero-video-wrap{
+    margin-top:10px;
+  }
+}
+
+/* MOBILE */
+@media (max-width:720px){
+  .hero{
+    padding:40px 0 32px;
+  }
+
+  .hero-copy h1{
+    font-size:clamp(2.3rem, 10vw, 3.5rem);
+  }
+
+  .hero-stats{
+    grid-template-columns:1fr;
+  }
+
+  .stat{
+    text-align:left;
+  }
+}
+</style>
+
+<script>
+const heroVid = document.getElementById('heroVid');
+const soundToggle = document.getElementById('soundToggle');
+
+soundToggle.addEventListener('click', async () => {
+  if (heroVid.muted) {
+    heroVid.muted = false;
+    try { await heroVid.play(); } catch(e) {}
+    soundToggle.textContent = 'Mute';
+  } else {
+    heroVid.muted = true;
+    soundToggle.textContent = 'Unmute';
+  }
+});
+</script>
+
+
+    <section class="section" style="padding-top:30px;padding-bottom:20px;">
+      <div class="wrap">
+        <div class="logo-strip">
+          <div class="logo-box"><img src="assets/AESS_LOGO.png" alt="AESS logo"></div>
+          <div class="logo-box">
+            <img src="assets/IEEE_LOGO.png" style="max-height:60px;">
+            </div>
+            <div class="logo-box">
+            <img src="assets/AIAA_LOGO.png" style="max-height:60px;">
+            </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="section">
+      <div class="wrap split">
+        <div class="panel card reveal">
+          <div class="eyebrow">About the Chapter</div>
+          <h2>Advanced systems, clean execution.</h2>
+          <p>
+        The Purdue AESS chapter is a multidisciplinary engineering team focused on the design, integration, and validation of advanced flight systems. Members gain hands-on experience across aerodynamics, propulsion, structures, controls, and systems engineering by working on real hardware and high-fidelity analysis. The team emphasizes disciplined engineering, practical problem-solving, and building systems that extend beyond typical collegiate projects.    
+        </p>
+        </div>
+
+        <div class="panel card reveal">
+          
+<div class="panel reveal" style="padding:0;overflow:hidden;">
+  <img src="assets/Team.jpg" alt="AESS Team Photo"
+       style="width:100%;height:420px;object-fit:cover;display:block;">
+</div>
+
+</div>
+    </section>
+
+<section id="project" class="section project-section">
+  <div class="wrap">
+
+    <div class="reveal project-header">
+      <div class="eyebrow">Flagship Project</div>
+      <h2>SSUAV Program</h2>
+      <p class="lead">
+        The Supersonic Small Unmanned Aerial Vehicle (SSUAV) program focuses on the design, build, and validation of a sub-25 kg air-breathing platform capable of exceeding Mach 1 under strict performance and system constraints.
+      </p>
+    </div>
+
+    <div class="project-grid">
+
+      <!-- LEFT -->
+      <div class="panel card reveal project-card">
+        <h3>Design Philosophy</h3>
+        <p>
+          The aircraft is built around a defined mission profile: carrier aircraft launch, release, acceleration to Mach 1, pull-up, and parachute recovery.
+        </p>
+
+        <div class="features">
+          <div class="feature">
+            <h3>Aerodynamics</h3>
+            <p>Supersonic configuration, low-drag shaping, and stability.</p>
+          </div>
+          <div class="feature">
+            <h3>Propulsion</h3>
+            <p>Inlet performance, engine integration, and system matching.</p>
+          </div>
+          <div class="feature">
+            <h3>Structures</h3>
+            <p>Mass-efficient design and manufacturable composite structure.</p>
+          </div>
+          <div class="feature">
+            <h3>Controls</h3>
+            <p>Flight dynamics, guidance, and system validation.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT -->
+      <div class="project-image reveal">
+        <img src="assets/Carrier_Dave.png" alt="Carrier Aircraft">
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<style>
+.project-section{
+  position: relative;
+}
+
+/* subtle depth */
+.project-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,.04), transparent 40%);
+  pointer-events:none;
+}
+
+/* header */
+.project-header .lead{
+  max-width:600px;
+}
+
+/* card */
+.project-card{
+  padding:32px;
+}
+
+/* features */
+.features{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+  margin-top:20px;
+}
+
+.feature{
+  padding:16px;
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:14px;
+  background:rgba(255,255,255,.02);
+}
+
+/* image */
+.project-image{
+  position:relative;
+  overflow:hidden;
+  border-radius:20px;
+}
+
+.project-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .5s ease;
+}
+
+.project-image:hover img{
+  transform:scale(1.03);
+}
+
+/* subtle gradient */
+.project-image::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.35));
+}
+
+/* mobile */
+@media (max-width:1080px){
+  .features{
+    grid-template-columns:1fr;
+  }
+}
+</style>
+
+    
+<section id="development" class="section">
+  <div class="wrap">
+
+    <div class="reveal">
+      <div class="eyebrow">Development</div>
+      <h2>Validation, testing, and build progress.</h2>
+      <p class="lead">
+        The program has progressed from analysis to physical validation, including wind tunnel testing, manufacturing development, and subsystem integration. These efforts validate key assumptions, inform design refinement, and reduce risk ahead of full vehicle build and flight.
+      </p>
+    </div>
+
+    <div class="split" style="margin-top:28px; align-items:start;">
+
+      <!-- WIND TUNNEL -->
+      <div class="panel card reveal">
+        <h3>Wind tunnel testing</h3>
+        <p>
+          A full-scale model was designed, built, and tested in the Boeing Subsonic Wind Tunnel at the Purdue Aerospace Sciences Lab. Testing focused on low-speed stability, control effectiveness, and overall aerodynamic behavior, validating analysis methods and informing configuration refinement.
+        </p>
+
+        <div style="display:grid;grid-template-columns:1fr;gap:12px;margin-top:18px;">
+          <div style="overflow:hidden;border-radius:14px;">
+            <img src="assets/Wind1.jpg" alt="Wind Tunnel Test 1"
+                 style="width:100%;height:240px;object-fit:cover;display:block;">
+          </div>
+          <div style="overflow:hidden;border-radius:14px;">
+            <img src="assets/Wind2.jpg" alt="Wind Tunnel Test 2"
+                 style="width:100%;height:240px;object-fit:cover;display:block;">
+          </div>
+        </div>
+      </div>
+
+      <!-- STRUCTURES -->
+      <div class="panel card reveal">
+        <h3>Structures and fabrication</h3>
+        <p>
+          Structural development focuses on manufacturable, mass-efficient composite construction under aggressive load requirements. Ongoing work includes material selection, layup process development, and fabrication trials to ensure reliable flight hardware.
+        </p>
+
+        <div style="display:grid;grid-template-columns:1fr;gap:12px;margin-top:18px;">
+          <div style="overflow:hidden;border-radius:14px;">
+            <img src="assets/Str1.jpg" alt="Composite fabrication process"
+                 style="width:100%;height:240px;object-fit:cover;display:block;">
+          </div>
+          <div style="overflow:hidden;border-radius:14px;">
+            <img src="assets/Str2.jpg" alt="Structural development and layup"
+                 style="width:100%;height:240px;object-fit:cover;display:block;">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+
+    <section id="gallery" class="section">
+      <div class="wrap">
+        <div class="reveal">
+          <div class="eyebrow">Media</div>
+          <h2>Inside the Program</h2>
+          <p class="lead">
+            Visuals and updates capturing the aircraft, the team, and the progression from design to hardware.
+        </p>
+        </div>
+
+        <div class="media-grid">
+          <div class="panel media-main reveal">
+            <div style="position:absolute;inset:0;display:grid;place-items:center;padding:30px;text-align:center;background:
+              linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)),
+              radial-gradient(circle at 50% 30%, rgba(255,255,255,.08), transparent 35%),
+              #070707;">
+              <div style="max-width:520px">
+                <div style="font-size:.82rem;letter-spacing:.22em;text-transform:uppercase;color:#b7b7b7;margin-bottom:14px;">Feature Media</div>
+                <div style="font-size:1.8rem;font-weight:800;letter-spacing:-.04em;">Video or hero rendering slot</div>
+                <div style="color:#b7b7b7;margin-top:10px;">Keep this as a teaser video section or swap in a polished render, test clip, or launch montage.</div>
+              </div>
+            </div>
+            <div class="media-caption">
+              <strong>Homepage teaser slot</strong>
+              <div style="color:var(--muted);margin-top:6px;">This is left as a clean section for your local teaser file.</div>
+            </div>
+          </div>
+
+        <div id="gallery" class="gallery" style="margin-top:24px;">
+          <div class="gallery-item reveal">
+            <div style="width:100%;height:100%;display:grid;place-items:center;padding:24px;text-align:center;background:#0a0a0a;color:#cfcfcf;">
+              <div><strong>Aircraft Rendering</strong><div style="margin-top:8px;color:#9a9a9a;">Add your best perspective render</div></div>
+            </div>
+          </div>
+          <div class="gallery-item reveal">
+            <div style="width:100%;height:100%;display:grid;place-items:center;padding:24px;text-align:center;background:#0a0a0a;color:#cfcfcf;">
+              <div><strong>Wind Tunnel Photo</strong><div style="margin-top:8px;color:#9a9a9a;">Use JEFF or test setup imagery</div></div>
+            </div>
+          </div>
+          <div class="gallery-item reveal">
+            <div style="width:100%;height:100%;display:grid;place-items:center;padding:24px;text-align:center;background:#0a0a0a;color:#cfcfcf;">
+              <div><strong>Team Photo</strong><div style="margin-top:8px;color:#9a9a9a;">Add full team or subteam photo</div></div>
+            </div>
+          </div>
+          <div class="gallery-item reveal">
+            <div style="width:100%;height:100%;display:grid;place-items:center;padding:24px;text-align:center;background:#0a0a0a;color:#cfcfcf;">
+              <div><strong>Simulation / CFD Visual</strong><div style="margin-top:8px;color:#9a9a9a;">Add pressure contours, shock render, or design review stills</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section id="subteams" class="section">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Subteams</div>
+      <h2>Five technical groups. One integrated aircraft.</h2>
+      <p class="lead">
+        The team is organized around core engineering groups that own the vehicle from concept through validation, with leadership and outreach supporting execution, recruiting, and external engagement.
+      </p>
+    </div>
+
+    <div class="leadership-grid" style="margin-top:28px;">
+
+      <article class="panel person reveal">
+        <div class="person-body">
+          <h3>Design / Aerodynamics</h3>
+          <div class="role">Configuration, stability, performance</div>
+          <p>
+            Owns airframe layout, aerodynamic shaping, drag reduction, stability work, and high-speed performance analysis. This group supports CFD, DATCOM, wind tunnel planning, and design refinement.
+          </p>
+        </div>
+      </article>
+
+      <article class="panel person reveal">
+        <div class="person-body">
+          <h3>Structures</h3>
+          <div class="role">Composite build strategy, validation, manufacturability</div>
+          <p>
+            Develops the structure around aggressive mass and load targets while evaluating layup methods, reinforcement-to-epoxy ratios, and fabrication processes for reliable flight hardware.
+          </p>
+        </div>
+      </article>
+
+      <article class="panel person reveal">
+        <div class="person-body">
+          <h3>Systems</h3>
+          <div class="role">Avionics, controls, integration</div>
+          <p>
+            Handles embedded systems, controls architecture, vehicle integration, and the bridge between simulation, onboard hardware, and operational execution.
+          </p>
+        </div>
+      </article>
+
+      <article class="panel person reveal">
+        <div class="person-body">
+          <h3>Propulsion</h3>
+          <div class="role">Engine integration, performance, testing</div>
+          <p>
+            Focuses on propulsion system selection, integration, and refinement for a COTS-based high-speed platform, with supporting analysis across inlet, engine, and overall vehicle performance.
+          </p>
+        </div>
+      </article>
+
+      <!-- NEW LAUNCH SUBTEAM -->
+      <article class="panel person reveal">
+        <div class="person-body">
+          <h3>Launch</h3>
+          <div class="role">Carrier aircraft, deployment systems</div>
+          <p>
+            Responsible for the carrier aircraft and all launch systems, including integration, release mechanisms, and operational execution. This group ensures reliable deployment and mission initiation.
+          </p>
+        </div>
+      </article>
+
+      <article class="panel person reveal">
+        <div class="person-body">
+          <h3>Chair / Vice Chair</h3>
+          <div class="role">Program leadership</div>
+          <p>
+            Coordinates team direction, project management, recruiting, sponsor communication, and alignment across all technical groups.
+          </p>
+        </div>
+      </article>
+
+      <article class="panel person reveal">
+        <div class="person-body">
+          <h3>Outreach</h3>
+          <div class="role">Visibility, partnerships, community</div>
+          <p>
+            Supports public-facing communication, media, events, recruitment, and sponsor relationships to expand the program’s reach and impact.
+          </p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+<section id="leadership" class="section">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Leadership</div>
+      <h2>Leadership, team leads, and support roles.</h2>
+      <p class="lead">
+        Chapter leadership and technical leads drive execution across the program, coordinating design, development, and operations while supporting recruiting, outreach, and external engagement.
+      </p>
+    </div>
+
+    <div class="leadership-grid">
+
+      <!-- CHAIR -->
+      <article class="panel person reveal">
+        <div class="person-photo">
+          <img src="assets/Lead_Chair.jpg" alt="Chair" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="person-body">
+          <h3>Chair</h3>
+          <div class="role">Lara Karsligil</div>
+          <p>Leads the organization, overseeing direction, operations, and coordination across all teams.</p>
+        </div>
+      </article>
+
+      <!-- VICE CHAIR (BLANK) -->
+      <article class="panel person reveal">
+        <div class="person-photo"></div>
+        <div class="person-body">
+          <h3>Vice Chair</h3>
+          <div class="role">Someone</div>
+          <p>Supports execution, internal coordination, and day-to-day operations across the program.</p>
+        </div>
+      </article>
+
+      <!-- OUTREACH -->
+      <article class="panel person reveal">
+        <div class="person-photo">
+          <img src="assets/Lead_Outreach.jpg" alt="Outreach Lead" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="person-body">
+          <h3>Outreach</h3>
+          <div class="role">Daniel Skomorovsky</div>
+          <p>Manages media, recruiting, and sponsor engagement to support program growth and visibility.</p>
+        </div>
+      </article>
+
+      <!-- AERO -->
+      <article class="panel person reveal">
+        <div class="person-photo">
+          <img src="assets/Lead_Aero.jpg" alt="Aero Lead" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="person-body">
+          <h3>Design / Aerodynamics</h3>
+          <div class="role">Myles Gragg & Alvin Cheng</div>
+          <p>Leads airframe design, aerodynamic shaping, stability analysis, and overall performance development.</p>
+        </div>
+      </article>
+
+      <!-- STRUCTURES -->
+      <article class="panel person reveal">
+        <div class="person-photo">
+          <img src="assets/Lead_Structures.jpg" alt="Structures Lead" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="person-body">
+          <h3>Structures</h3>
+          <div class="role">Jude Narayana</div>
+          <p>Owns structural design, composite development, and fabrication processes for flight hardware.</p>
+        </div>
+      </article>
+
+      <!-- SYSTEMS -->
+      <article class="panel person reveal">
+        <div class="person-photo">
+          <img src="assets/Lead_Systems.jpg" alt="Systems Lead" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="person-body">
+          <h3>Systems</h3>
+          <div class="role">Jonathon Reilly</div>
+          <p>Responsible for avionics, controls architecture, and full system integration.</p>
+        </div>
+      </article>
+
+      <!-- PROPULSION -->
+      <article class="panel person reveal">
+        <div class="person-photo">
+          <img src="assets/Lead_Propulsion.jpg" alt="Propulsion Lead" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="person-body">
+          <h3>Propulsion</h3>
+          <div class="role">Daniel Sigmund & Aditya Kapoor</div>
+          <p>Leads propulsion integration, inlet performance, and system-level engine matching.</p>
+        </div>
+      </article>
+
+      <!-- LAUNCH -->
+      <article class="panel person reveal">
+        <div class="person-photo">
+          <img src="assets/Lead_Launch.jpg" alt="Launch Lead" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <div class="person-body">
+          <h3>Launch</h3>
+          <div class="role">Aiden Frank & Shalin Sinha</div>
+          <p>Responsible for the carrier aircraft, release mechanisms, and all launch system integration and operations.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+
+    <section id="advisors" class="section">
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Advisors</div>
+      <h2>Technical oversight.</h2>
+      <p class="lead">
+        Faculty and industry advisors provide guidance to ensure disciplined engineering and validated performance.
+      </p>
+    </div>
+
+    <div class="leadership-grid">
+
+<article class="panel person reveal">
+  <div class="person-photo">
+    <img src="assets/Advisor1.jpg" alt="Brandon Chynoweth" style="width:100%;height:100%;object-fit:cover;">
+  </div>
+  <div class="person-body">
+    <h3>Brandon Chynoweth</h3>
+    <div class="role">Faculty Advisor · Research Associate Professor, AAE</div>
+    <p>
+      Serves as the faculty advisor, providing guidance on aerodynamic testing, experimental methods, and overall technical direction.
+    </p>
+  </div>
+</article>
+
+      <article class="panel person reveal">
+        <div class="person-photo">
+          <img src="assets/advisor2.jpg" alt="Propulsion Advisor">
+        </div>
+        <div class="person-body">
+          <h3>Advisor Name</h3>
+          <div class="role">Propulsion Advisor</div>
+          <p>Supports engine integration, performance modeling, and high-speed operation.</p>
+        </div>
+      </article>
+
+      <article class="panel person reveal">
+        <div class="person-photo">
+          <img src="assets/advisor3.jpg" alt="Structures Advisor">
+        </div>
+        <div class="person-body">
+          <h3>Advisor Name</h3>
+          <div class="role">Structures Advisor</div>
+          <p>Advises on composite design, structural sizing, and load-driven validation.</p>
+        </div>
+      </article>
+
+    </div>
+  </div>
+    </section>
+
+
+    <section id="sponsors" class="section">
+      <div class="wrap">
+        <div class="reveal">
+          <div class="eyebrow">Sponsors</div>
+          <h2>Help accelerate the program.</h2>
+          <p class="lead">
+            Sponsorship can support manufacturing, testing, avionics, propulsion integration, travel, media production, and student development.
+          </p>
+        </div>
+
+        <div class="sponsor-grid">
+          <div class="panel card reveal">
+            <h3>Affiliated Partners</h3>
+            <div class="logo-strip">
+              <div class="logo-box"><img src="assets/Purdue_LOGO.png" alt="Purdue"></div>
+              <div class="logo-box tall"><img src="assets/IEEE_LOGO.png" alt="IEEE"></div>
+              <div class="logo-box tall"><img src="assets/AIAA_LOGO.png" alt="AIAA"></div>
+            </div>
+            <div class="note">
+            </div>
+          </div>
+
+          <div class="panel card reveal">
+            <h3>Sponsorship opportunities</h3>
+            <div class="sponsor-list">
+              <div class="item">Cash sponsorship for fabrication, testing, and travel</div>
+              <div class="item">In-kind support for materials, machining, electronics, software, or sensors</div>
+              <div class="item">Technical mentorship, design reviews, and industry partnership</div>
+              <div class="item">Brand placement on the website, media, and select project materials</div>
+            </div>
+            <div class="btns">
+              <a class="btn primary" href="#contact">Become a Sponsor</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+<section id="contact" class="section"> 
+  <div class="wrap">
+    <div class="reveal">
+      <div class="eyebrow">Contact</div>
+      <h2>Join, collaborate, or sponsor.</h2>
+      <p class="lead">
+        For general inquiries, sponsorship opportunities, or team involvement, reach out directly or connect through social platforms.
+      </p>
+    </div>
+
+    <!-- EMAIL (no box) -->
+    <div class="reveal" style="margin-top:18px;">
+<div style="font-size:.9rem;color:#aaa;font-weight:700;letter-spacing:.02em;">
+  General inquiries / Sponsorship
+</div>
+      <a href="mailto:aesspurdue@gmail.com" style="font-size:1.1rem;">
+        aesspurdue@gmail.com
+      </a>
+    </div>
+
+    <!-- SOCIAL BUTTONS -->
+    <div class="reveal" style="margin-top:28px;">
+      <div style="font-size:.8rem;letter-spacing:.18em;text-transform:uppercase;color:#aaa;font-weight:700;margin-bottom:10px;">
+        Affiliations & Social
+      </div>
+
+      <div class="contact-actions">
+        <a class="btn" href="https://www.purdueieee.org/aess" target="_blank" rel="noopener">IEEE AESS</a>
+        <a class="btn" href="https://www.instagram.com/purdueaess/" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn" href="https://www.linkedin.com/company/purdue-aess/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.contact-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px;
+}
+
+.contact-actions .btn{
+  font-size:.85rem;
+  padding:10px 16px;
+}
+
+/* mobile */
+@media (max-width:720px){
+  .contact-actions{
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .contact-actions .btn{
+    width:100%;
+    text-align:center;
+  }
+}
+</style>
+
+
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-row">
+      <div>Purdue AESS Chapter | Faster Than Innovation</div>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries)=>{
+      entries.forEach(entry=>{
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
+      });
+    }, {threshold: 0.12});
+    reveals.forEach(el => observer.observe(el));
+
+          </script>
+</body>
+</html>
