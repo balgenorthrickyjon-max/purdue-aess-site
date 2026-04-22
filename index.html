@@ -279,11 +279,8 @@
       object-fit:cover;
     }
 
-.media-main img{
-  object-fit:contain;
-  background:#060606;
-}
 
+    
     .media-caption{
       position:absolute;
       left:22px;
@@ -666,9 +663,9 @@
   .features,
   .gallery,
   .logo-strip,
-  .leadership-grid{
-    grid-template-columns:1fr;
-  }
+.leadership-grid{
+  grid-template-columns:repeat(2, minmax(0,1fr));
+}
 
   .section{
     padding:72px 0;
