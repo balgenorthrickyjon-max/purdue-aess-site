@@ -123,13 +123,6 @@
       border-bottom:1px solid rgba(255,255,255,.07);
     }
 
-    .nav{
-      min-height:78px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-    }
     .brand{
       display:flex;
       align-items:center;
@@ -157,20 +150,6 @@
       overflow:hidden;
       text-overflow:ellipsis;
     }
-
-    .nav-links{
-  display:flex;
-  align-items:center;
-  gap:18px;
-  flex-wrap:nowrap;
-  justify-content:flex-end;
-}
-.nav-links a{
-  color:var(--muted);
-  font-size:.92rem;
-  white-space:nowrap;
-}
-.nav-links a:hover{color:var(--text)}
 
     .hero{
       padding:72px 0 48px;
@@ -572,7 +551,60 @@
       cursor:pointer;
     }
 
-    @media (max-width: 1080px){
+
+
+
+.nav{
+  min-height:78px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:18px;
+  position:relative;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:18px;
+  flex-wrap:nowrap;
+  justify-content:flex-end;
+}
+
+.nav-links a{
+  color:var(--muted);
+  font-size:.92rem;
+  white-space:nowrap;
+}
+
+.nav-links a:hover{
+  color:var(--text);
+}
+
+.nav-toggle{
+  display:none;
+  width:48px;
+  height:48px;
+  border:none;
+  background:transparent;
+  padding:0;
+  cursor:pointer;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  gap:5px;
+}
+
+.nav-toggle span{
+  display:block;
+  width:22px;
+  height:2px;
+  background:var(--text);
+  border-radius:999px;
+  transition:.25s ease;
+}
+
+@media (max-width: 1080px){
   .hero-grid,
   .split,
   .project-grid,
@@ -589,90 +621,141 @@
   .hero-visual{
     min-height:420px;
   }
+}
+
+@media (max-width: 900px){
+  .wrap{
+    width:min(calc(100% - 24px), var(--max));
+  }
 
   .nav{
-    min-height:auto;
-    padding:12px 0;
-    flex-direction:column;
-    align-items:flex-start;
-    justify-content:flex-start;
-    gap:12px;
+    min-height:78px;
+    padding:10px 0;
+    align-items:center;
+    flex-wrap:wrap;
   }
 
   .brand{
-    width:100%;
+    flex:1;
+    min-width:0;
+  }
+
+  .brand img{
+    width:76px;
+  }
+
+  .nav-toggle{
+    display:flex;
   }
 
   .nav-links{
-    display:grid;
-    grid-template-columns:repeat(4, minmax(0,1fr));
-    gap:8px;
+    display:none;
     width:100%;
-    justify-content:stretch;
+    flex-direction:column;
+    align-items:stretch;
+    gap:8px;
+    margin-top:12px;
+    padding:12px;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:18px;
+    background:rgba(12,12,12,.96);
+  }
+
+  .nav-links.show{
+    display:flex;
   }
 
   .nav-links a{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:8px 6px;
-    font-size:.8rem;
-    line-height:1.1;
+    display:block;
+    width:100%;
+    padding:12px 14px;
     border:1px solid rgba(255,255,255,.08);
-    border-radius:999px;
+    border-radius:12px;
     background:rgba(255,255,255,.03);
+    text-align:left;
+    font-size:.95rem;
+  }
+
+  .hero{
+    padding-top:36px;
+  }
+
+  .hero-stats,
+  .features,
+  .gallery,
+  .logo-strip,
+  .leadership-grid{
+    grid-template-columns:1fr;
+  }
+
+  .section{
+    padding:72px 0;
+  }
+
+  .hero-visual{
+    min-height:340px;
   }
 }
 
-    @media (max-width: 720px){
-      .wrap{width:min(calc(100% - 24px), var(--max))}
-      .nav{padding:14px 0}
-      .nav-links{
-  display:grid;
-  grid-template-columns:repeat(2, minmax(0,1fr));
-  gap:8px;
-  width:100%;
-}
-      .hero{padding-top:36px}
-      .hero-stats,
-      .features,
-      .gallery,
-      .logo-strip,
-      .leadership-grid{
-        grid-template-columns:1fr;
-      }
-      .section{padding:72px 0}
-      .hero-visual{min-height:340px}
-      .brand img{width:76px}
-    }
+
+
+
+
+
+
+
+
 
 
     
   </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap nav">
-      <a class="brand" href="#top">
-        <img src="assets/AESS_LOGO.png" alt="AESS Purdue logo" />
-        <div class="brand-text">
-          <strong>Purdue AESS</strong>
-          <span>Aerospace & Electronic Systems Society</span>
-        </div>
-      </a>
-      <nav class="nav-links">
-        <a href="#about">About</a>
-        <a href="#project">Project</a>
-        <a href="#development">Development</a>
-        <a href="#subteams">Subteams</a>
-        <a href="#leadership">Leadership</a>
-        <a href="#advisors">Advisors</a>
-        <a href="#sponsors">Sponsors</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+
+
+
+
+
+
+
+
+<header class="site-header">
+  <div class="wrap nav">
+    <a class="brand" href="#top">
+      <img src="assets/AESS_LOGO.png" alt="AESS Purdue logo" />
+      <div class="brand-text">
+        <strong>Purdue AESS</strong>
+        <span>Aerospace & Electronic Systems Society</span>
+      </div>
+    </a>
+
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileNav">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="nav-links" id="mobileNav">
+      <a href="#about">About</a>
+      <a href="#project">Project</a>
+      <a href="#development">Development</a>
+      <a href="#subteams">Subteams</a>
+      <a href="#leadership">Leadership</a>
+      <a href="#advisors">Advisors</a>
+      <a href="#sponsors">Sponsors</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+
+
+
+
+
+
+
+
 
   <main id="top">
 
@@ -1521,5 +1604,41 @@ soundToggle.addEventListener('click', async () => {
     reveals.forEach(el => observer.observe(el));
 
           </script>
+
+
+
+
+
+
+
+
+<script>
+const navToggle = document.getElementById('navToggle');
+const mobileNav = document.getElementById('mobileNav');
+
+if (navToggle && mobileNav) {
+  navToggle.addEventListener('click', () => {
+    mobileNav.classList.toggle('show');
+    const expanded = mobileNav.classList.contains('show');
+    navToggle.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+  });
+
+  mobileNav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      mobileNav.classList.remove('show');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+}
+</script>
+
+
+
+
+
+
+
+
+
 </body>
 </html>
