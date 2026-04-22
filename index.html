@@ -272,12 +272,18 @@
       min-height:500px;
       position:relative;
     }
-    .media-main video,
-    .media-main img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-    }
+.media-main{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:#060606;
+}
+
+.media-main img{
+  width:100%;
+  height:auto;
+  object-fit:contain;
+}
 
 
     
