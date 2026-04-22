@@ -993,6 +993,7 @@ soundToggle.addEventListener('click', async () => {
 </div>
     </section>
 
+
 <section id="project" class="section project-section">
   <div class="wrap">
 
@@ -1013,22 +1014,22 @@ soundToggle.addEventListener('click', async () => {
           The aircraft is built around a defined mission profile: carrier aircraft launch, release, acceleration to Mach 1, pull-up, and parachute recovery.
         </p>
 
-        <div class="features">
-          <div class="feature">
-            <h3>Aerodynamics</h3>
-            <p>Supersonic configuration, low-drag shaping, and stability.</p>
+        <div class="project-specs">
+          <div class="spec-row">
+            <div class="spec-key">Objective</div>
+            <div class="spec-value">Demonstrate a sub-25 kg air-breathing aircraft capable of exceeding Mach 1.</div>
           </div>
-          <div class="feature">
-            <h3>Propulsion</h3>
-            <p>Inlet performance, engine integration, and system matching.</p>
+          <div class="spec-row">
+            <div class="spec-key">Mission Profile</div>
+            <div class="spec-value">Carrier-aircraft launch, release, supersonic acceleration, pull-up, and parachute recovery.</div>
           </div>
-          <div class="feature">
-            <h3>Structures</h3>
-            <p>Mass-efficient design and manufacturable composite structure.</p>
+          <div class="spec-row">
+            <div class="spec-key">Core Challenge</div>
+            <div class="spec-value">Achieve supersonic performance under tight constraints in mass, fuel, propulsion integration, and controllability.</div>
           </div>
-          <div class="feature">
-            <h3>Controls</h3>
-            <p>Flight dynamics, guidance, and system validation.</p>
+          <div class="spec-row">
+            <div class="spec-key">Engineering Approach</div>
+            <div class="spec-value">Combine high-fidelity analysis, experimental validation, and manufacturable hardware development.</div>
           </div>
         </div>
       </div>
@@ -1042,6 +1043,95 @@ soundToggle.addEventListener('click', async () => {
 
   </div>
 </section>
+
+<style>
+.project-section{
+  position:relative;
+}
+
+.project-section::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(255,255,255,.04), transparent 40%);
+  pointer-events:none;
+}
+
+.project-header .lead{
+  max-width:650px;
+}
+
+.project-card{
+  padding:32px;
+}
+
+.project-card h3{
+  margin-bottom:14px;
+}
+
+.project-specs{
+  margin-top:24px;
+  border-top:1px solid rgba(255,255,255,.08);
+}
+
+.spec-row{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:18px;
+  padding:16px 0;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.spec-key{
+  font-size:.82rem;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+  color:var(--muted2);
+  padding-top:2px;
+}
+
+.spec-value{
+  color:var(--text);
+  line-height:1.6;
+}
+
+.project-image{
+  position:relative;
+  overflow:hidden;
+  border-radius:20px;
+}
+
+.project-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .5s ease;
+}
+
+.project-image:hover img{
+  transform:scale(1.03);
+}
+
+.project-image::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg, rgba(0,0,0,0), rgba(0,0,0,.35));
+}
+
+@media (max-width:1080px){
+  .spec-row{
+    grid-template-columns:1fr;
+    gap:8px;
+  }
+
+  .spec-key{
+    padding-top:0;
+  }
+}
+</style>
 
 <style>
 .project-section{
