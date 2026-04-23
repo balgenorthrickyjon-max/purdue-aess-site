@@ -768,16 +768,15 @@
     <div class="hero-right reveal">
 
       <div class="hero-video-wrap">
-        <video
+<video
   id="heroVid"
   class="hero-video"
   autoplay
   muted
   loop
   playsinline
-  webkit-playsinline
   preload="auto"
-  poster="assets/MainRender.jpg"
+  poster=""
 >
   <source src="assets/AESS_Promotional_Video.mp4" type="video/mp4">
 </video>
@@ -953,29 +952,29 @@
 const heroVid = document.getElementById('heroVid');
 const soundToggle = document.getElementById('soundToggle');
 
-async function tryPlayHeroVideo() {
+async function forceHeroVideoPlay() {
   if (!heroVid) return;
+
   heroVid.muted = true;
   heroVid.defaultMuted = true;
+  heroVid.setAttribute('muted', '');
+  heroVid.setAttribute('playsinline', '');
+  heroVid.removeAttribute('controls');
 
   try {
     await heroVid.play();
-  } catch (e) {
-    console.log('Autoplay blocked:', e);
+  } catch (err) {
+    console.log('Hero autoplay blocked:', err);
   }
 }
 
+document.addEventListener('DOMContentLoaded', forceHeroVideoPlay);
+window.addEventListener('load', forceHeroVideoPlay);
+window.addEventListener('pageshow', forceHeroVideoPlay);
+
 if (heroVid) {
-  heroVid.addEventListener('loadedmetadata', tryPlayHeroVideo);
-  heroVid.addEventListener('canplay', tryPlayHeroVideo);
-
-  document.addEventListener('visibilitychange', () => {
-    if (!document.hidden) tryPlayHeroVideo();
-  });
-
-  window.addEventListener('pageshow', tryPlayHeroVideo);
-
-  tryPlayHeroVideo();
+  heroVid.addEventListener('loadeddata', forceHeroVideoPlay);
+  heroVid.addEventListener('canplay', forceHeroVideoPlay);
 }
 
 soundToggle.addEventListener('click', async () => {
