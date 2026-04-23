@@ -768,9 +768,19 @@
     <div class="hero-right reveal">
 
       <div class="hero-video-wrap">
-        <video id="heroVid" class="hero-video" autoplay muted loop playsinline>
-          <source src="assets/AESS_Promotional_Video.mp4">
-        </video>
+        <video
+  id="heroVid"
+  class="hero-video"
+  autoplay
+  muted
+  loop
+  playsinline
+  webkit-playsinline
+  preload="auto"
+  poster="assets/MainRender.jpg"
+>
+  <source src="assets/AESS_Promotional_Video.mp4" type="video/mp4">
+</video>
 
         <button class="sound-toggle" id="soundToggle">Unmute</button>
       </div>
@@ -943,6 +953,31 @@
 const heroVid = document.getElementById('heroVid');
 const soundToggle = document.getElementById('soundToggle');
 
+async function tryPlayHeroVideo() {
+  if (!heroVid) return;
+  heroVid.muted = true;
+  heroVid.defaultMuted = true;
+
+  try {
+    await heroVid.play();
+  } catch (e) {
+    console.log('Autoplay blocked:', e);
+  }
+}
+
+if (heroVid) {
+  heroVid.addEventListener('loadedmetadata', tryPlayHeroVideo);
+  heroVid.addEventListener('canplay', tryPlayHeroVideo);
+
+  document.addEventListener('visibilitychange', () => {
+    if (!document.hidden) tryPlayHeroVideo();
+  });
+
+  window.addEventListener('pageshow', tryPlayHeroVideo);
+
+  tryPlayHeroVideo();
+}
+
 soundToggle.addEventListener('click', async () => {
   if (heroVid.muted) {
     heroVid.muted = false;
@@ -950,6 +985,7 @@ soundToggle.addEventListener('click', async () => {
     soundToggle.textContent = 'Mute';
   } else {
     heroVid.muted = true;
+    try { await heroVid.play(); } catch(e) {}
     soundToggle.textContent = 'Unmute';
   }
 });
